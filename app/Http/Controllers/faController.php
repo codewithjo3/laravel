@@ -15,7 +15,10 @@ class faController extends Controller
      */
     public function index()
     {
-        //
+
+        $faculties=FacultyModel::all();
+
+        return view('view',compact('faculties'));
     }
 
     /**
@@ -34,6 +37,16 @@ class faController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function search(Request $request)
+     {
+         $getName=request("Name");
+
+         $faculties=FacultyModel::query()
+         ->where("Name","LIKE","%{$getName}%")
+         ->get();
+
+         return view('view',compact('faculties'));
+     }
     public function store(Request $request)
     {
         $getName=request('fname');
@@ -77,7 +90,9 @@ class faController extends Controller
      */
     public function edit($id)
     {
-        //
+        $faculties=FacultyModel::find($id);
+
+        return view('facultyeditview',compact('faculties'));
     }
 
     /**
@@ -89,7 +104,24 @@ class faController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+       $faculty=FacultyModel::find($id);
+
+        $getName=request('fname');
+        $getDes=request('fdesig');
+        $getCollege=request('fcollege');
+        $getContact=request('fcontactnumber');
+
+
+
+        $faculty->Name=$getName;
+        $faculty->designation=$getDes;
+        $faculty->College=$getCollege;
+        $faculty->ContactNo=$getContact;
+
+        $faculty->save();
+
+        return redirect('/view');
     }
 
     /**
@@ -98,6 +130,8 @@ class faController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     
     public function destroy($id)
     {
         //

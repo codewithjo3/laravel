@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\StudentModel;
 
 class StudentController extends Controller
 {
@@ -36,13 +37,22 @@ class StudentController extends Controller
     {
         $getname=request('sname');
         $getroll=request('sroll');
-        $getname=request('scollege');
+        $getcollege=request('scollege');
         $getadmno=request('sadmno');
 
         echo $getname;
         echo $getroll;
-        echo $getname;
+        echo $getcollege;
         echo $getadmno;
+
+        $student= new StudentModel();
+
+        $student->Name->$getname;
+        $student->Rollno->$getroll;
+        $student->College->$getcollege;
+        $student->AdmissionNo->$getadmno;
+
+        $student->save();
     }
 
     /**
